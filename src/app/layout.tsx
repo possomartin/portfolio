@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Cormorant, Open_Sans } from 'next/font/google';
 import './globals.css';
+import { Menu } from '@components/menu';
 
 const cormorant = Cormorant({
   variable: '--font-cormorant',
@@ -15,7 +16,6 @@ const openSans = Open_Sans({
 export const metadata: Metadata = {
   title: 'Martin Posso Portfolio',
   description: 'A Portfolio to display Martin Posso Work',
-  viewport: { width: 'device-width', initialScale: 1 },
 };
 
 export default function RootLayout({
@@ -28,7 +28,11 @@ export default function RootLayout({
       <body
         className={`${cormorant.variable} ${openSans.variable} antialiased`}
       >
-        {children}
+        <header>
+          <Menu />
+        </header>
+        <main>{children}</main>
+        <footer></footer>
       </body>
     </html>
   );
