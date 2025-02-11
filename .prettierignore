@@ -1,0 +1,10 @@
+public
+node_modules
+.husky
+.prettierrc
+tsconfig.json
+.env
+.prettierignore
+.gitignore
+.eslintignore
+*.html
