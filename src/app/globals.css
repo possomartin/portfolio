@@ -4,18 +4,20 @@
 
 :root {
   --background: #ffffff;
+  --background-secondary: #FAFAFA;
   --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --primary: #3D5FC3;
+  --secondary: #869FE5;
+  --accent: #5077E8;
+  --text: #0A0B11;
 }
 
 body {
-  color: var(--foreground);
+  color: var(--text);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-cormorant), serif, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-open-sans), Arial, Helvetica, sans-serif;
 }
