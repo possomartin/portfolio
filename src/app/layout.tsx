@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Cormorant, Open_Sans } from 'next/font/google';
 import './globals.css';
-import { Menu } from '@components/menu';
+import { NavBar } from '@components/navBar';
 
 const cormorant = Cormorant({
   variable: '--font-cormorant',
@@ -12,6 +12,11 @@ const openSans = Open_Sans({
   variable: '--font-open-sans',
   subsets: ['latin'],
 });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: 'Martin Posso Portfolio',
@@ -29,7 +34,7 @@ export default function RootLayout({
         className={`${cormorant.variable} ${openSans.variable} antialiased`}
       >
         <header>
-          <Menu />
+          <NavBar />
         </header>
         <main>{children}</main>
         <footer></footer>

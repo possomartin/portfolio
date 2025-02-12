@@ -20,6 +20,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@lottie/*": ["./src/lottie/*"],
       "@components/*": ["./src/app/components/*"]
     }
   },
