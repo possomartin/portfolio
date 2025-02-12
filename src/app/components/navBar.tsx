@@ -56,14 +56,14 @@ export const NavBar = (): ReactElement => {
             strokeColor="var(--accent)"
             animation={menu}
             className="z-50"
+            onClick={() => {
+              onclick();
+            }}
             render={(eventProps, animationProps) => (
               <button type="button" {...eventProps}>
                 <div {...animationProps} />
               </button>
             )}
-            onClick={() => {
-              onclick();
-            }}
           />
           <div
             className="absolute text-[var(--accent)] border z-0 right-1/2 shadow-lg rounded-md bg-[var(--background-secondary)]"

@@ -41,9 +41,9 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
+    "*.{ts, tsx}": [
       "prettier --list-different",
-      "npm run format",
+      "npm run format:fix",
       "npm run lint:fix",
       "git add ."
     ],
