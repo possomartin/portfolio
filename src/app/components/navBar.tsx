@@ -2,25 +2,22 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import menu from 'react-useanimations/lib/menu2';
 import React, { ReactElement, useState } from 'react';
+import { AnimatedLottie } from '@components/animatedLottie';
 import { AnimatedLink, IAnimatedLinkProps } from '@components/animatedLink';
-import dynamic from 'next/dynamic';
-
-const UseAnimations = dynamic(() => import('react-useanimations'), {
-  loading: () => <div>Loading...</div>,
-  ssr: false,
-});
+import { PopOver } from './popOver';
 
 export const NavBar = (): ReactElement => {
   /* Active Link */
   const [active, setActive] = useState<number>(0);
 
   /* Control PopUp Menu State*/
-  const [popped, setPopped] = useState<boolean>(true);
+  const [isHidden, setHidden] = useState<boolean>(true);
   const onclick = (): void => {
-    setPopped(!popped);
+    setHidden(!isHidden);
   };
+
+  /* Animations */
 
   /* Menu Options List*/
   const menuOptions: IAnimatedLinkProps[] = [
@@ -35,7 +32,7 @@ export const NavBar = (): ReactElement => {
     <div className="flex pt-5 pr-10 pl-10 md:pr-20 md:pl-20">
       {/*Desktop Menu*/}
       <div className="flex-grow md:flex-2">
-        <Link href={'/#home'}>
+        <Link href={'/'}>
           <Image
             src={'/portfolio_logo.svg'}
             width={96}
@@ -50,41 +47,25 @@ export const NavBar = (): ReactElement => {
       <div className="flex flex-grow md:flex-2 items-center justify-end">
         {/*Mobile Menu*/}
         <div className="md:hidden relative">
-          <UseAnimations
-            size={32}
-            speed={2}
-            strokeColor="var(--accent)"
-            animation={menu}
-            className="z-50"
-            onClick={() => {
-              onclick();
-            }}
-            render={(eventProps, animationProps) => (
-              <button type="button" {...eventProps}>
-                <div {...animationProps} />
-              </button>
-            )}
+          <AnimatedLottie
+            animation={'./lottie/menu.lottie'}
+            speed={3}
+            onClickEvent={onclick}
           />
-          <div
-            className="absolute text-[var(--accent)] border z-0 right-1/2 shadow-lg rounded-md bg-[var(--background-secondary)]"
-            hidden={popped}
-          >
-            <div className="flex flex-col space-y-6 justify-between items-end pt-5 pb-5 pr-10 pl-10 min-w-48 z-0">
-              {menuOptions.map((element, id) => (
+          <PopOver isHidden={isHidden}>
+            {menuOptions.map((element, id) => (
+              <div
+                className="flex flex-row justify-between space-x-5 items-center"
+                key={id}
+                onClick={() => setActive(id)}
+              >
                 <div
-                  className="flex flex-row justify-between space-x-5 items-center"
-                  key={id}
-                  onClick={() => setActive(id)}
-                >
-                  <div
-                    className="rounded-lg bg-[var(--primary)] w-1 h-2"
-                    hidden={id != active}
-                  />
-                  <AnimatedLink title={element.title} link={element.link} />
-                </div>
-              ))}
-            </div>
-          </div>
+                  className={`rounded-lg bg-[var(--primary)] w-1 h-2 ${id != active ? 'invisible' : 'visible'}`}
+                />
+                <AnimatedLink title={element.title} link={element.link} />
+              </div>
+            ))}
+          </PopOver>
         </div>
         {/*Desktop Menu*/}
         <div className="hidden md:flex flex-row text-[var(--accent)] space-x-6 items-center justify-center">

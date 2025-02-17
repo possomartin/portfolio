@@ -20,7 +20,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@lottie/*": ["./src/lottie/*"],
+      "@lottie/*": ["./public/lottie/*"],
       "@components/*": ["./src/app/components/*"]
     }
   },
