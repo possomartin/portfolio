@@ -51,6 +51,7 @@ export const NavBar = (): ReactElement => {
             animation={'./lottie/menu.lottie'}
             speed={3}
             onClickEvent={onclick}
+            reverse
           />
           <PopOver isHidden={isHidden}>
             {menuOptions.map((element, id) => (

@@ -1,15 +1,21 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import React, { ReactElement, useState, useEffect, ReactNode } from 'react';
 import { DotLottie, DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 export interface IAnimatedLottie {
   animation: string;
   speed?: number;
-  onClickEvent: () => void;
+  left?: boolean;
+  reverse?: boolean;
+  children?: ReactNode;
+  onClickEvent?: () => void;
 }
 
 export const AnimatedLottie = ({
   animation,
   speed,
+  reverse,
+  children,
+  left,
   onClickEvent,
 }: IAnimatedLottie): ReactElement => {
   const [dotLottie, setDotLottie] = useState<DotLottie | null>(null);
@@ -20,7 +26,7 @@ export const AnimatedLottie = ({
   const play = () => {
     if (dotLottie) {
       dotLottie.play();
-      onClickEvent();
+      if (onClickEvent) onClickEvent();
     }
   };
 
@@ -28,31 +34,39 @@ export const AnimatedLottie = ({
     dotLottie?.addEventListener('load', () => {
       dotLottie.renderConfig.autoResize = true;
       dotLottie.setSpeed(speed ?? 2);
-      console.log(dotLottie.manifest?.themes);
+      dotLottie.setLoop(false);
     });
 
     dotLottie?.addEventListener('complete', () => {
-      if (dotLottie.mode == 'reverse') {
-        dotLottie.setMode('forward');
-      } else {
-        dotLottie.setMode('reverse');
+      if (reverse) {
+        if (dotLottie.mode == 'reverse') {
+          dotLottie.setMode('forward');
+        } else {
+          dotLottie.setMode('reverse');
+        }
       }
     });
 
     return () => {
       if (dotLottie) {
-        dotLottie?.removeEventListener('load');
-        dotLottie?.removeEventListener('complete');
+        dotLottie.removeEventListener('load');
+        dotLottie.removeEventListener('complete');
       }
     };
-  }, [dotLottie, speed]);
+  }, [dotLottie, speed, reverse]);
 
   return (
-    <button onClick={play} className="w-12 h-12">
-      <DotLottieReact
-        src={animation}
-        dotLottieRefCallback={dotLottieRefCallback}
-      />
+    <button
+      onClick={play}
+      className={`flex ${left ? 'flex-row' : 'flex-row-reverse'} items-center`}
+    >
+      <div className="w-12 h-12">
+        <DotLottieReact
+          src={animation}
+          dotLottieRefCallback={dotLottieRefCallback}
+        />
+      </div>
+      {children}
     </button>
   );
 };

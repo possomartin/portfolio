@@ -11,7 +11,10 @@ export const AnimatedLink = ({
   link,
 }: IAnimatedLinkProps): ReactElement => {
   return (
-    <Link href={link} className="group max-h-5 block space-y-5 overflow-hidden">
+    <Link
+      href={link}
+      className="group max-h-5 block space-y-5 overflow-hidden font-bold"
+    >
       <h3 className="group-hover:-translate-y-8 transition-transform delay-100">
         {title}
       </h3>
