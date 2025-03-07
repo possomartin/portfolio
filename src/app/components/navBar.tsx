@@ -46,7 +46,7 @@ export const NavBar = (): ReactElement => {
       <div className="invisible w-2/4 flex-1 md:flex-2"></div>
       <div className="flex flex-grow md:flex-2 items-center justify-end">
         {/*Mobile Menu*/}
-        <div className="md:hidden relative">
+        <div className="md:hidden relative z-20">
           <AnimatedLottie
             animation={'./lottie/menu.lottie'}
             speed={3}
@@ -56,7 +56,7 @@ export const NavBar = (): ReactElement => {
           <PopOver isHidden={isHidden}>
             {menuOptions.map((element, id) => (
               <div
-                className="flex flex-row justify-between space-x-5 items-center"
+                className="flex flex-row justify-between space-x-5 items-center z-10"
                 key={id}
                 onClick={() => setActive(id)}
               >
