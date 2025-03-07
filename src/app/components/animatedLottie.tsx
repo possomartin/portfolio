@@ -7,6 +7,9 @@ export interface IAnimatedLottie {
   left?: boolean;
   reverse?: boolean;
   children?: ReactNode;
+  style?: string;
+  size?: string;
+  hover?: boolean;
   onClickEvent?: () => void;
 }
 
@@ -16,6 +19,9 @@ export const AnimatedLottie = ({
   reverse,
   children,
   left,
+  style,
+  size,
+  hover,
   onClickEvent,
 }: IAnimatedLottie): ReactElement => {
   const [dotLottie, setDotLottie] = useState<DotLottie | null>(null);
@@ -23,10 +29,16 @@ export const AnimatedLottie = ({
     setDotLottie(dotLottie);
   };
 
-  const play = () => {
+  const playOnClick = () => {
     if (dotLottie) {
       dotLottie.play();
       if (onClickEvent) onClickEvent();
+    }
+  };
+
+  const playOnHover = () => {
+    if (dotLottie) {
+      dotLottie.play();
     }
   };
 
@@ -57,10 +69,12 @@ export const AnimatedLottie = ({
 
   return (
     <button
-      onClick={play}
-      className={`flex ${left ? 'flex-row' : 'flex-row-reverse'} items-center`}
+      type="button"
+      onClick={!hover ? playOnClick : () => {}}
+      onMouseOver={hover ? playOnHover : () => {}}
+      className={`flex ${left ? 'flex-row' : 'flex-row-reverse'} items-center ${style}`}
     >
-      <div className="w-12 h-12">
+      <div className={size || 'w-12 h-12'}>
         <DotLottieReact
           src={animation}
           dotLottieRefCallback={dotLottieRefCallback}
