@@ -6,15 +6,22 @@ import { AnimatedLottie } from './animatedLottie';
 export interface IAnimatedButtonProps {
   title: string;
   link: string;
+  className?: string;
   onClick?: () => void;
 }
 
 export const AnimatedButton = ({
   title,
   link,
+  className,
 }: IAnimatedButtonProps): ReactElement => {
   return (
-    <div className="group relative text-[var(--accent)] font-(--font-open-sans) font-bold cursor-pointer">
+    <div
+      className={
+        'group relative text-[var(--accent)] font-(--font-open-sans) font-bold cursor-pointer ' +
+        className
+      }
+    >
       <Link
         href={link}
         className="flex flex-row items-center justify-center z-50"
